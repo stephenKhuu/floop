@@ -1,0 +1,15 @@
+<li id="goal-<%= goal.id %>">
+  <%= link_to gravatar_for(goal.user, size: 50), goal.user %>
+  <span class="user"><%= link_to goal.user.name, goal.user %></span>
+  <span class="content">
+    <%= goal.content %>
+    <%= image_tag goal.picture.url if goal.picture? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(goal.created_at) %> ago.
+    <% if current_user?(goal.user) %>
+      <%= link_to "delete", goal, method: :delete,
+                  data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+</li>
