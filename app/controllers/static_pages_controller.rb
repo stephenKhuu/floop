@@ -6,6 +6,10 @@ class StaticPagesController < ApplicationController
     end
   end
 
+  def feedback
+    @feedback_user = User.last
+  end
+
   def help
   end
 

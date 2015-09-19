@@ -1,6 +1,21 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <%= link_to "sample app", root_path, id: "logo" %>
+  <div class="">
+    <nav class="cyan lighten-1 z-depth-1">
+      <div class="nav-wrapper container">
+        <div class="col s12">
+          <%= link_to image_tag("flipp-large_white.png", alt: "Floop"), root_path, id: "logo" %>
+
+          <% if logged_in? %>
+            <ul class="right">
+              <li>
+                <%= link_to "Log out", logout_path, method: "delete" %>
+              </li>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+    <!--
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_path %></li>
@@ -25,5 +40,6 @@
         <% end %>
       </ul>
     </nav>
+    -->
   </div>
 </header>

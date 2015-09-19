@@ -1,12 +1,15 @@
 <%= form_for(@goal, html: { multipart: true }) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Compose new goal..." %>
+  <div class="input-field">
+    <%= f.text_area :content, class: 'materialize-text-area'%>
+    <label for="goal_content">Enter a goal</label>
   </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
+  <!--
   <span class="picture">
     <%= f.file_field :picture %>
   </span>
+  -->
 <% end %>
 
 <script type="text/javascript">

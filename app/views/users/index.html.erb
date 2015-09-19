@@ -1,10 +1,126 @@
 <% provide(:title, 'All users') %>
-<h1>All users</h1>
+<div class="container">
 
-<%= will_paginate %>
+  <div class="row">
 
-<ul class="users">
-  <%= render @users %>
-</ul>
+    <% if current_user.coaching.present? %>
 
-<%= will_paginate %>
+      <ul class="collapsible" data-collapsible="accordion">
+      <% current_user.coaching.each do |coachee| %>
+        <li>
+          <div class="collapsible-header">
+            <div class="profile_tab_area">
+              <% if coachee.profile_pic %>
+                <div class="profile-pic-wrapper" style="background-image: url('<%= coachee.profile_pic %>');">
+                </div>
+              <% end %>
+              <div class="profile_name">
+                <%= coachee.name %>
+              </div>
+            </div>
+          </div>
+          <div class="collapsible-body">
+            <% if coachee.goals.any? %>
+              <h4>Current Goals</h4>
+              <table id="goal-table">
+                <tbody>
+                <% coachee.goals.each_with_index do |goal, index| %>
+                  <tr>
+                    <td>
+                      <p>
+                        <input type="checkbox" class="checkbox" id="goal<%= index %>>" />
+                        <label for="goal<%= index %>"><%= goal.content %></label>
+                      </p>
+                    </td>
+
+                    <% if goal.deadline %>
+                      <td><p><label class="red-text text-darken-1">Complete by: <%= goal.deadline %></label></p></td>
+                    <% end %>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+            <% end %>
+
+            <div class="divider"></div>
+
+            <h4>Team Feedback</h4>
+
+            <div class="row">
+              <div class="col s12">
+                <ul class="tabs">
+                  <li class="tab col s3">
+                    <a class="active" href="#test1_<%= coachee.id %>">
+                      <% if coachee.name.include? 'Ash' %>
+                        Gary Oak
+                      <% else %>
+                        Ash Ketchum
+                      <% end %>
+                    </a>
+                  </li>
+                  <li class="tab col s3">
+                    <a href="#test2_<%= coachee.id %>">Brock</a>
+                  </li>
+                </ul>
+              </div>
+              <div id="test1_<%= coachee.id %>" class="col s12 feedback_tab">
+                <div class="card grey lighten-5">
+                  <div class="card-content">
+                    <span class="card-title"><div class="feedback-card-title">Strengths</div></span>
+                    <p>
+                      <% if coachee.name.include? 'Ash' %>
+                        Always takes an extra step of care.
+                      <% else %>
+                        Always one step ahead.
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+                <div class="card grey lighten-5">
+                  <div class="card-content">
+                    <span class="card-title"><div class="feedback-card-title">Areas of Improvement</div></span>
+                    <p>
+                      <% if coachee.name.include? 'Ash' %>
+                        Always one step behind me.
+                      <% else %>
+                        Needs to work on humbleness.
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div id="test2_<%= coachee.id %>" class="col s12 feedback_tab">
+                <div class="card grey lighten-5">
+                  <div class="card-content">
+                    <span class="card-title"><div class="feedback-card-title">Strengths</div></span>
+                    <p>Has a great collection of Pokemon</p>
+                  </div>
+                </div>
+                <div class="card grey lighten-5">
+                  <div class="card-content">
+                    <span class="card-title"><div class="feedback-card-title">Areas of Improvement</div></span>
+                    <p>Needs to train his Pokemon more often.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </li>
+      <% end %>
+      </ul>
+
+    <% else %>
+      You are currently not coaching anyone.
+    <% end %>
+  </div>
+
+</div>
+
+<script>
+  $(function(){
+    $('.collapsible').collapsible();
+    $('ul.tabs').tabs();
+  });
+</script>
+

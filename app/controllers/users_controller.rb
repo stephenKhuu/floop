@@ -11,6 +11,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @goals = @user.goals.paginate(page: params[:page])
+    @goal  = current_user.goals.build
   end
 
   def new

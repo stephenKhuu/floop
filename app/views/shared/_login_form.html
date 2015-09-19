@@ -1,0 +1,37 @@
+<% provide(:title, "Log in") %>
+<div class="container">
+  <div class="col s12 login_wrapper">
+    <%= form_for(:session, url: login_path) do |f| %>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.email_field :email, class: 'form-control validate', id: 'email' %>
+        <label for="email" data-error="incorrect format" data-success="">Email</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control validate' %>
+        <%= link_to "(forgot password)", new_password_reset_path %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me, class: "checkbox inline"%>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>

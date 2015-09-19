@@ -1,10 +1,15 @@
 class Goal < ActiveRecord::Base
   belongs_to :user
+  before_save :default_values
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
   validate  :picture_size
+
+  def default_values
+    self.deadline ||= Time.now + 2.weeks
+  end
 
   private
 

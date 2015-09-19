@@ -100,6 +100,10 @@ class User < ActiveRecord::Base
     coaching.include?(other_user)
   end
 
+  def has_profile_pic?
+    self.profile_pic.present?
+  end
+
   private
 
     # Converts email to all lower-case.

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row"><h2 class="center-align grey-text text-darken-1">Feedback</h2></div>
+  <div class="divider"></div>
+
+  <div class="row">
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <div class="row">
+            <div class="profile-pic-wrapper" style="background-image: url('<%= @feedback_user.profile_pic %>');">
+            </div>
+          </div>
+          <div class="row"><h6 class="center-align grey-text text-darken-1"><%= @feedback_user.name %></h6></div>
+        </td>
+
+        <td>
+          <div class="card grey lighten-5">
+            <div class="card-content">
+              <span class="card-title"><div class="feedback-card-title">Strengths</div></span>
+              <div class="input-field feedback-input-textarea"><textarea id="strengths"></textarea></div>
+            </div>
+            <div class="card-action">
+              <a href="#">Save</a>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="card grey lighten-5">
+            <div class="card-content">
+              <span class="card-title"><div class="feedback-card-title">Areas of Improvement</div></span>
+              <div class="input-field feedback-input-textarea"><textarea id="strengths"></textarea></div>
+            </div>
+            <div class="card-action">
+              <a href="#">Save</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
