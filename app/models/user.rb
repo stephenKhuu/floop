@@ -1,5 +1,13 @@
 class User < ActiveRecord::Base
   has_many :goals, dependent: :destroy
+  has_many :active_relationships, class_name:  "Relationship",
+                                   foreign_key: "coach_id",
+                                   dependent:   :destroy
+  has_many :passive_relationships, class_name:  "Relationship",
+                                   foreign_key: "coachee_id",
+                                   dependent:   :destroy
+  has_many :coaching, through: :active_relationships, source: :coachee
+  has_many :coaches, through: :passive_relationships, source: :coach
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -72,9 +80,24 @@ class User < ActiveRecord::Base
   end
 
   # Defines a proto-feed.
-  # See "Following users" for the full implementation.
+  # See "Coaching users" for the full implementation.
   def feed
     Goal.where("user_id = ?", id)
+  end
+
+  # Coaches a user.
+  def coach(other_user)
+    active_relationships.create(coachee_id: other_user.id)
+  end
+
+  # Uncoachs a user.
+  def uncoach(other_user)
+    active_relationships.find_by(coachee_id: other_user.id).destroy
+  end
+
+  # Returns true if the current user is coaching the other user.
+  def coaching?(other_user)
+    coaching.include?(other_user)
   end
 
   private
